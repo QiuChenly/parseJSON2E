@@ -1,0 +1,2 @@
+# parseJSON2E
+将JSON数据类型一键转换为易语言自定义数据类型,喜欢的给个star吧!欢迎贡献code
