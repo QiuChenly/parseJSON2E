@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="727ec1d2-1a24-4d52-88d4-c1c76137cf33" name="Default Changelist" comment="" />
+    <list default="true" id="727ec1d2-1a24-4d52-88d4-c1c76137cf33" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +18,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+            <state relative-caret-position="345">
+              <caret line="40" column="38" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+              <folding>
+                <element signature="e#583#765#0" />
+                <element signature="e#684#733#0" />
+                <element signature="e#944#2418#0" />
+                <element signature="e#2591#3045#0" />
+                <element signature="e#3228#3706#0" />
+                <element signature="e#3857#3906#0" />
+                <element signature="e#4054#4102#0" />
+                <element signature="e#4317#4376#0" />
+                <element signature="e#4714#5015#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -29,6 +44,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -36,9 +54,12 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="2560" />
     <option name="height" value="1440" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -98,15 +119,15 @@
       <workItem from="1548308566654" duration="7534000" />
       <workItem from="1548339815981" duration="1146000" />
       <workItem from="1548390082371" duration="512000" />
-      <workItem from="1548390782375" duration="13000" />
+      <workItem from="1548390782375" duration="1198000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9205000" />
+    <option name="totallyTimeSpent" value="10390000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <frame x="0" y="23" width="2560" height="1348" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18943606" />
@@ -155,8 +176,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+        <state relative-caret-position="345">
+          <caret line="40" column="38" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+          <folding>
+            <element signature="e#583#765#0" />
+            <element signature="e#684#733#0" />
+            <element signature="e#944#2418#0" />
+            <element signature="e#2591#3045#0" />
+            <element signature="e#3228#3706#0" />
+            <element signature="e#3857#3906#0" />
+            <element signature="e#4054#4102#0" />
+            <element signature="e#4317#4376#0" />
+            <element signature="e#4714#5015#0" />
+          </folding>
         </state>
       </provider>
     </entry>
