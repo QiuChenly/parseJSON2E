@@ -16,7 +16,7 @@ var newClass = [];
 var BaseFunctionHead =
     '.版本 2\n' +
     '\n' +
-    '.子程序 {FunctionName}, {ClassName}, 公开, ,//本方法使用秋城落叶一键JSON2E工具自动生成.\n' +
+    '.子程序 {FunctionName}, {ClassName}, 公开, //本方法使用秋城落叶一键JSON2E工具自动生成.\n' +
     '.参数 QueryText, 文本型\n' +
     '.局部变量 json, 类_JSON_, , , //类_JSON_ 使用该模块进行JSON解析\n';
 var codeSection =

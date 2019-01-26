@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="727ec1d2-1a24-4d52-88d4-c1c76137cf33" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Eval.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Eval.js" beforeDir="false" afterPath="$PROJECT_DIR$/Eval.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +27,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="350">
-                <caret line="12" column="93" lean-forward="true" selection-start-line="12" selection-start-column="93" selection-end-line="12" selection-end-column="93" />
+              <first_editor relative-caret-position="1150">
+                <caret line="36" column="54" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="54" />
               </first_editor>
               <second_editor />
             </state>
@@ -53,8 +51,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Eval.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/Eval.js" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -90,7 +88,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548478470805" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548480763686" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -126,12 +124,12 @@
       <workItem from="1548390082371" duration="512000" />
       <workItem from="1548390782375" duration="5581000" />
       <workItem from="1548415325175" duration="15821000" />
-      <workItem from="1548475709134" duration="2187000" />
+      <workItem from="1548475709134" duration="3554000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32781000" />
+    <option name="totallyTimeSpent" value="34148000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
@@ -184,13 +182,6 @@
     <entry file="file://$PROJECT_DIR$/WX20190126-010005.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Eval.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5432">
-          <caret line="304" column="1" selection-start-line="304" selection-start-column="1" selection-end-line="304" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/react.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -201,11 +192,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Eval.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="2" column="8" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="350">
-            <caret line="12" column="93" lean-forward="true" selection-start-line="12" selection-start-column="93" selection-end-line="12" selection-end-column="93" />
+          <first_editor relative-caret-position="1150">
+            <caret line="36" column="54" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="54" />
           </first_editor>
           <second_editor />
         </state>
