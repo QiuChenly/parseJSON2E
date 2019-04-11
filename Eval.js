@@ -3,20 +3,28 @@ var author = "QiuChenly";
 //代码发布日期
 var build_date = "2019年1月25日";
 //优化算法版本
-var codeVersion = "1.2";
+var codeVersion = "1.3";
 //算法版本特性
-var newFeature = "1.2" +
+var newFeature = "1.3 2019年4月12日" +
+    "[修复] 某些特殊JSON中key中包含斜线加减乘除等特殊字符的全部修改为'_'." +
+    "[修复] 某些特殊JSON中存在空对象'{}'导致自动创建无成员数据类型的问题." +
+    "[修复] 某些特殊JSON中存在对象实际引用地址不正确的问题." +
+    "[改进] 代码格式tab缩进问题的修正." +
+    "[改进] 算法优化." +
+
+
+    "1.2 2019年1月25日" +
     "[新增] 支持一键生成JSON方法读取函数." +
     "";
 
 var BaseSpace = "    ";
 var BaseInfoW = ".版本 2\n";
-var BaseAdditionSymbols = "_";
+var BaseAdditionSymbols = "与";
 var newClass = [];
 var BaseFunctionHead =
     '.版本 2\n' +
     '\n' +
-    '.子程序 {FunctionName}, {ClassName}, 公开, //本方法使用秋城落叶一键JSON2E工具自动生成.\n' +
+    '.子程序 {FunctionName}, {ClassName}, 公开, //本方法使用秋城落叶一键JSON2E工具[' + codeVersion + ']版算法自动生成.\n' +
     '.参数 QueryText, 文本型\n' +
     '.局部变量 json, 类_JSON_, , , //类_JSON_ 使用该模块进行JSON解析\n';
 var codeSection =
@@ -55,14 +63,15 @@ function addRegionVariable(name, type, commit) {
  * @param str json
  * @param functionName 默认的易语言方法名称
  * @param className 默认的顶级易语言数据类型名称
+ * @param defaultChar 无需理会本参数
  * @return 返回完整的 json2e 方法描述信息
  */
-function parseJSON2Function(str, functionName, className) {
+function parseJSON2Function(str, functionName, className, defaultChar) {
     BaseFunctionHead = BaseFunctionHead
         .replace("{FunctionName}", functionName)
         .replace("{ClassName}", className);
     addRegionVariable('ret', className, "//本值用于返回该对象 ---- 自动生成");
-    getClassReadCode(str, "ret", false);
+    getClassReadCode(str, "ret", false, defaultChar);
     return BaseFunctionHead + codeSection + end;
 }
 
@@ -84,8 +93,9 @@ function addTabs() {
  * @param str json源文件
  * @param objName 默认的易语言参数名称
  * @param isLoop 是否是计次循环内
+ * @param jsonRealLinkName 实际的JSON文件绝对路径,用于修复fixSignal函数造成的函数名错误问题
  */
-function getClassReadCode(str, objName, isLoop) {
+function getClassReadCode(str, objName, isLoop, jsonRealLinkName) {
     var variable = "a";
     for (var sec1 in str) {
         //if (sec1 === "wemedia")//调试锚点 Release去掉
@@ -93,18 +103,20 @@ function getClassReadCode(str, objName, isLoop) {
         if (str.hasOwnProperty(sec1)) {
             var valueType = getObjTypeName(str[sec1]);
             //console.log(sec1);
-            addTabs();
-            var newClsName = objName + (iteratorCount > 0 ? "[" + variable + "]" : '') + "." + sec1;
-            var jsonClsName = newClsName.substring(4, newClsName.length);
-            if (jsonClsName.indexOf('[' + variable + ']') !== -1) {
-                var tempArr = jsonClsName.split("[" + variable + "]");
-                jsonClsName = "";
+            //addTabs();
+            var newClsName = objName + (iteratorCount > 0 ? "[" + variable + "]" : '') + "." + fixSignal(sec1);
+            /*
+             var jsonClsName = newClsName.substring(4, newClsName.length);
+            */
+            if (jsonRealLinkName.indexOf('[' + variable + ']') !== -1) {
+                var tempArr = jsonRealLinkName.split("[" + variable + "]");
+                jsonRealLinkName = "";
                 for (var i = 0; i < tempArr.length; i++) {
-                    jsonClsName += tempArr[i] + (i === tempArr.length - 1 ? '' : '[" ＋ 到文本 (' + variable + ' － 1) ＋ "]');
+                    jsonRealLinkName += tempArr[i] + (i === tempArr.length - 1 ? '' : '[" ＋ 到文本 (' + variable + ' － 1) ＋ "]');
                 }
             }
             if (isObj(valueType)) {
-                getClassReadCode(str[sec1], newClsName);
+                getClassReadCode(str[sec1], newClsName, false, jsonRealLinkName + sec1 + ".");
             } else if (isObjArr(valueType)) {
                 for (var i = 0; i < iteratorCount; i++) {
                     variable += "1";
@@ -112,24 +124,27 @@ function getClassReadCode(str, objName, isLoop) {
                 addRegionVariable(variable, '整数型', '//临时循环计数变量 ---- 自动生成');
                 var isBaseTypeArr = checkAllType(str[sec1]);
                 //如果是动态数组,则此处需要进行处理
-                codeSection += '重定义数组 (' + newClsName + ', 假, json.取子项目数 (\"' + jsonClsName + '\", , ))\n';
+                codeSection += '重定义数组 (' + newClsName + ', 假, json.取子项目数 (\"' + jsonRealLinkName + sec1 + '\", , ))\n';
                 addTabs();
-                codeSection += ".计次循环首 (json.取子项目数(\"" + jsonClsName + "\", ,), " + variable + ")\n";
+                codeSection += ".计次循环首 (json.取子项目数(\"" + jsonRealLinkName + sec1 + "\", ,), " + variable + ")\n";
                 iteratorCount += 1;
                 if (isBaseTypeArr) {
                     addTabs();
-                    addNew(null, isLoop, newClsName, jsonClsName + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "]', variable, valueType);
+                    addNew(null, true, newClsName, jsonRealLinkName + sec1 + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "]', variable, valueType);
                 } else {
                     //todo 此处固定为0  有优化问题
-                    getClassReadCode(str[sec1][0], newClsName, true);
+                    getClassReadCode(str[sec1][0], newClsName, true, jsonRealLinkName + sec1 + '[' + variable + ']');
                 }
                 iteratorCount -= 1;
-                variable = variable.substring(0, variable.length - 1);
+                if (variable.length > 1) {
+                    variable = variable.substring(0, variable.length - 1);
+                }
                 if (iteratorCount < 0) iteratorCount = 0;
                 addTabs();
                 codeSection += ".计次循环尾 ()\n";
             } else {
-                addNew(sec1, isLoop, objName, jsonClsName, variable, valueType);
+                addTabs();
+                addNew(sec1, isLoop, objName, jsonRealLinkName + sec1, variable, valueType);
             }
         }
     }
@@ -177,12 +192,43 @@ function convertOtherType(key, expression) {
 }
 
 /**
+ * 检查对象是否为空对象
+ * @param obj 对象体
+ * @returns {boolean} 返回true表示为空
+ */
+function isNullObj(obj) {
+    var i = 0;
+    for (var element in obj) {
+        i++;
+        if (i > 0) return false
+    }
+    return true
+}
+
+/**
+ * 将特殊符号修复为'_'以支持易语言IDE
+ * @param element 字符串对象
+ * @returns {void | string} 返回修正过的字符串
+ */
+function fixSignal(element) {
+    return element.replace(/[\\\/+]/g, function (e) {
+        var t = {
+            "\\": "-",
+            "/": "_",
+            "+": "_"
+        };
+        return t[e]
+    })
+}
+
+/**
  * 生成单独的完整数据类型
  * @param tests 测试的完整 json 对象
  * @param className 默认生成的易语言顶级数据类型名称
  * @return 返回一个完整的数据类型数据
  */
 function getAll(tests, className) {
+    className = fixSignal(className);
     var BaseInfo = '.数据类型 ' + className + ', 公开, 以下对象内自动设置的基本类型值不为标准值,仅作参考,请自行判断取用\n';
     for (var theObjName in tests) {
         if (tests.hasOwnProperty(theObjName)) {
@@ -191,8 +237,13 @@ function getAll(tests, className) {
             var newClsName = className + BaseAdditionSymbols + theObjName;
             if (isObj(valueType)) {
                 //单独对象的处理
-                BaseInfo += getChild(theObjName, newClsName);
-                newClass.push(getAll(tests[theObjName], newClsName))
+                if (isNullObj(tests[theObjName])) { //此处处理异常空对象意外
+                    //其他基本类型处理
+                    BaseInfo += getChild(theObjName, getE_TypeName(valueType), false, -1, "注意:该字段在JSON中为空对象,无法自动解析,已作文本型处理");
+                } else { //不是空对象继续处理
+                    BaseInfo += getChild(theObjName, newClsName);
+                    newClass.push(getAll(tests[theObjName], newClsName))
+                }
             } else if (isObjArr(valueType)) {
                 //对象数组的递归处理
                 //有时候数组会为[]这种形式，此时无法确定具体的类型,默认设为基本数据类型 文本型 数组
@@ -297,9 +348,12 @@ function getObjTypeName(obj) {
  * @returns {string} 返回组装好的字段
  */
 function getChild(name, type, isArr, arrSize, moreInfo) {
+    //修复不允许输入的特殊字符导致的编译错误问题
+    name = fixSignal(name);
+    type = fixSignal(type);
     if (moreInfo === undefined) moreInfo = "";
     if (arrSize === 0) arrSize = 1;
     var arr = "";
     if (isArr) arr = ', "' + arrSize + '"';
-    return BaseSpace + ".成员 " + name + ", " + type + ", " + arr + ", " + (isArr ? '该对象为 数组对象' : ', 该对象为 基本对象') + moreInfo + "\n"
+    return BaseSpace + ".成员 " + name + ", " + type + ", " + arr + ", " + (isArr ? '该对象为 数组对象 ' : ', 该对象为 基本对象 ') + moreInfo + "\n"
 }
