@@ -63,15 +63,14 @@ function addRegionVariable(name, type, commit) {
  * @param str json
  * @param functionName 默认的易语言方法名称
  * @param className 默认的顶级易语言数据类型名称
- * @param defaultChar 无需理会本参数
  * @return 返回完整的 json2e 方法描述信息
  */
-function parseJSON2Function(str, functionName, className, defaultChar) {
+function parseJSON2Function(str, functionName, className) {
     BaseFunctionHead = BaseFunctionHead
         .replace("{FunctionName}", functionName)
         .replace("{ClassName}", className);
     addRegionVariable('ret', className, "//本值用于返回该对象 ---- 自动生成");
-    getClassReadCode(str, "ret", false, defaultChar);
+    getClassReadCode(str, "ret", false, "");
     return BaseFunctionHead + codeSection + end;
 }
 
