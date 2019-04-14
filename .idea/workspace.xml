@@ -4,7 +4,7 @@
     <list default="true" id="727ec1d2-1a24-4d52-88d4-c1c76137cf33" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Eval.js" beforeDir="false" afterPath="$PROJECT_DIR$/Eval.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +15,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="1538" column="20" lean-forward="true" selection-start-line="1538" selection-start-column="20" selection-end-line="1538" selection-end-column="20" />
+            <state relative-caret-position="710">
+              <caret line="1542" column="4" selection-start-line="1542" selection-start-column="4" selection-end-line="1542" selection-end-column="4" />
+              <folding>
+                <element signature="e#504#37808#0" />
+                <element signature="e#3449#3650#0" />
+                <element signature="e#4297#6576#0" />
+                <element signature="e#6602#8486#0" />
+                <element signature="e#37887#76668#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -27,18 +34,18 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Eval.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="68" column="39" lean-forward="true" selection-start-line="68" selection-start-column="39" selection-end-line="68" selection-end-column="39" />
+            <state relative-caret-position="200">
+              <caret line="8" column="39" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="39" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="175">
-                <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+              <first_editor relative-caret-position="225">
+                <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               </first_editor>
               <second_editor />
             </state>
@@ -59,6 +66,10 @@
     <findStrings>
       <find>jsonClsName</find>
       <find>addNew</find>
+      <find>variable</find>
+      <find>fixSignal</find>
+      <find>isBaseTypeArr</find>
+      <find>vipRights</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -67,9 +78,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/Eval.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/Eval.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -104,13 +115,14 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555011989872" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555265844327" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -124,6 +136,14 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JavascriptDebugType" uri="http://localhost:63343/parseJSON2E/JSON2E/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.html" type="JavascriptDebugType" nameIsGenerated="true" uri="http://localhost:63343/parseJSON2E/JSON2E/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -144,7 +164,10 @@
       <workItem from="1548504017037" duration="166000" />
       <workItem from="1555003986910" duration="6829000" />
       <workItem from="1555012060500" duration="5000" />
-      <workItem from="1555012242831" duration="30000" />
+      <workItem from="1555012242831" duration="60000" />
+      <workItem from="1555012309822" duration="6000" />
+      <workItem from="1555012649519" duration="405000" />
+      <workItem from="1555249252559" duration="10804000" />
     </task>
     <task id="LOCAL-00001" summary="算法优化">
       <created>1555011988731</created>
@@ -153,17 +176,24 @@
       <option name="project" value="LOCAL" />
       <updated>1555011988732</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="修改一处错误">
+      <created>1555012284526</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1555012284526</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43249000" />
+    <option name="totallyTimeSpent" value="54494000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16240682" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16719915" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -173,15 +203,15 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32970297" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4049505" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32970297" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Version Control" order="11" visible="true" weight="0.32970297" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32970297" />
       <window_info anchor="bottom" id="Flutter Performance" order="12" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -241,7 +271,32 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="算法优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="算法优化" />
+    <MESSAGE value="修改一处错误" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改一处错误" />
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>mJsonObj[mItemObj][0]</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>JsonRealLink + mItemObj + '[&quot; ＋ 到文本 (' + variable + ' － 1) ＋ &quot;]'</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>eCodeObj + mItemObj + '[' + variable + ']'</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>eCodeObj + fixSignal(mItemObj) + &quot;.&quot;</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/WX20190126-010005.png">
@@ -264,27 +319,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="175">
-            <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
+    <entry file="http://localhost:63343/parseJSON2E/JSON2E/Eval.js">
+      <provider selected="true" editor-type-id="httpFileEditor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Eval.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="68" column="39" lean-forward="true" selection-start-line="68" selection-start-column="39" selection-end-line="68" selection-end-column="39" />
+        <state relative-caret-position="200">
+          <caret line="8" column="39" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="1538" column="20" lean-forward="true" selection-start-line="1538" selection-start-column="20" selection-end-line="1538" selection-end-column="20" />
+        <state relative-caret-position="710">
+          <caret line="1542" column="4" selection-start-line="1542" selection-start-column="4" selection-end-line="1542" selection-end-column="4" />
+          <folding>
+            <element signature="e#504#37808#0" />
+            <element signature="e#3449#3650#0" />
+            <element signature="e#4297#6576#0" />
+            <element signature="e#6602#8486#0" />
+            <element signature="e#37887#76668#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="225">
+            <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

@@ -3,9 +3,13 @@ var author = "QiuChenly";
 //代码发布日期
 var build_date = "2019年1月25日";
 //优化算法版本
-var codeVersion = "1.3";
+var codeVersion = "1.4";
 //算法版本特性
-var newFeature = "1.3 2019年4月12日" +
+var newFeature = "1.4 2019年4月15日" +
+    "[修复] 1.3及以前版本中对超大Json数据解析造成的生成代码问题" +
+
+
+    "1.3 2019年4月12日" +
     "[修复] 某些特殊JSON中key中包含斜线加减乘除等特殊字符的全部修改为'_'." +
     "[修复] 某些特殊JSON中存在空对象'{}'导致自动创建无成员数据类型的问题." +
     "[修复] 某些特殊JSON中存在对象实际引用地址不正确的问题." +
@@ -19,7 +23,7 @@ var newFeature = "1.3 2019年4月12日" +
 
 var BaseSpace = "    ";
 var BaseInfoW = ".版本 2\n";
-var BaseAdditionSymbols = "与";
+var BaseAdditionSymbols = "的";//改正语义
 var newClass = [];
 var BaseFunctionHead =
     '.版本 2\n' +
@@ -28,7 +32,7 @@ var BaseFunctionHead =
     '.参数 QueryText, 文本型\n' +
     '.局部变量 json, 类_JSON_, , , //类_JSON_ 使用该模块进行JSON解析\n';
 var codeSection =
-    "json.解析文本 (QueryText, , )\n";
+    "json.解析文本 (QueryText, , )' 默认解析代码 --- 自动创建\n";
 var end = "返回 (ret)";
 var iteratorCount = 0;
 
@@ -54,8 +58,7 @@ function parseJSON(str, defaultName) {
  */
 function addRegionVariable(name, type, commit) {
     var variable = '.局部变量 ' + name + ', ' + type + ', , , ' + commit + '\n';
-    if (BaseFunctionHead.indexOf(variable) === -1)
-        BaseFunctionHead += variable;
+    if (BaseFunctionHead.indexOf(variable) === -1) BaseFunctionHead += variable;
 }
 
 /**
@@ -70,7 +73,7 @@ function parseJSON2Function(str, functionName, className) {
         .replace("{FunctionName}", functionName)
         .replace("{ClassName}", className);
     addRegionVariable('ret', className, "//本值用于返回该对象 ---- 自动生成");
-    getClassReadCode(str, "ret", false, "");
+    getClassReadCode(str, "ret.", "");
     return BaseFunctionHead + codeSection + end;
 }
 
@@ -89,68 +92,82 @@ function addTabs() {
 
 /**
  * 转换为易语言方法主程序段,递归算法
- * @param str json源文件
- * @param objName 默认的易语言参数名称
- * @param isLoop 是否是计次循环内
- * @param jsonRealLinkName 实际的JSON文件绝对路径,用于修复fixSignal函数造成的函数名错误问题
+ * @param mJsonObj 传入的欲检查的json对象
+ * @param eCodeObj 易语言代码中的对象引用代码
+ * @param JsonRealLink 实际的JSON文件绝对路径
  */
-function getClassReadCode(str, objName, isLoop, jsonRealLinkName) {
+function getClassReadCode(mJsonObj, eCodeObj, JsonRealLink) {
     var variable = "a";
-    for (var sec1 in str) {
-        //if (sec1 === "wemedia")//调试锚点 Release去掉
-        //    console.log("");
-        if (str.hasOwnProperty(sec1)) {
-            var valueType = getObjTypeName(str[sec1]);
-            //console.log(sec1);
-            //addTabs();
-            var newClsName = objName + (iteratorCount > 0 ? "[" + variable + "]" : '') + "." + fixSignal(sec1);
-            /*
-             var jsonClsName = newClsName.substring(4, newClsName.length);
-            */
-            if (jsonRealLinkName.indexOf('[' + variable + ']') !== -1) {
-                var tempArr = jsonRealLinkName.split("[" + variable + "]");
-                jsonRealLinkName = "";
-                for (var i = 0; i < tempArr.length; i++) {
-                    jsonRealLinkName += tempArr[i] + (i === tempArr.length - 1 ? '' : '[" ＋ 到文本 (' + variable + ' － 1) ＋ "]');
-                }
-            }
-            if (isObj(valueType)) {
-                getClassReadCode(str[sec1], newClsName, false, jsonRealLinkName + sec1 + ".");
-            } else if (isObjArr(valueType)) {
+    for (var mItemObj in mJsonObj) {
+        if (mJsonObj.hasOwnProperty(mItemObj)) {
+            var mObjType = getObjTypeName(mJsonObj[mItemObj]);//获取这个对象的实际类型 做后续判断
+            if (isObj(mObjType) && !isNullObj(mJsonObj[mItemObj])) {
+                getClassReadCode(mJsonObj[mItemObj], eCodeObj + fixSignal(mItemObj) + ".", JsonRealLink + mItemObj + ".");
+            } else if (isObjArr(mObjType)) {
                 for (var i = 0; i < iteratorCount; i++) {
                     variable += "1";
                 }
                 addRegionVariable(variable, '整数型', '//临时循环计数变量 ---- 自动生成');
-                var isBaseTypeArr = checkAllType(str[sec1]);
+                var isBaseTypeArr = checkAllType(mJsonObj[mItemObj]);
                 //如果是动态数组,则此处需要进行处理
-                codeSection += '重定义数组 (' + newClsName + ', 假, json.取子项目数 (\"' + jsonRealLinkName + sec1 + '\", , ))\n';
-                addTabs();
-                codeSection += ".计次循环首 (json.取子项目数(\"" + jsonRealLinkName + sec1 + "\", ,), " + variable + ")\n";
+                addFor(eCodeObj + fixSignal(mItemObj), JsonRealLink + mItemObj, variable);
                 iteratorCount += 1;
-                if (isBaseTypeArr) {
-                    addTabs();
-                    addNew(null, true, newClsName, jsonRealLinkName + sec1 + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "]', variable, valueType);
+                if (mJsonObj[mItemObj].length <= 0) {
+                    addNewComment("' //警告,该对象是空数组,无法确定具体值,请小心使用.\n");
+                    addNew(eCodeObj + mItemObj + '[' + variable + ']', JsonRealLink + mItemObj + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "]', variable);
                 } else {
-                    //todo 此处固定为0  有优化问题
-                    getClassReadCode(str[sec1][0], newClsName, true, jsonRealLinkName + sec1 + '[' + variable + ']');
+                    //如果是基本类型数组
+                    if (isBaseTypeArr) {
+                        addNew(
+                            eCodeObj + fixSignal(mItemObj) + '[' + variable + ']',
+                            JsonRealLink + mItemObj + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "].',
+                            mObjType
+                        );
+                    } else {
+                        //todo 此处固定为0  有优化问题
+                        getClassReadCode(mJsonObj[mItemObj][0], eCodeObj + fixSignal(mItemObj) + '[' + variable + '].', JsonRealLink + mItemObj + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "].');
+                    }
                 }
                 iteratorCount -= 1;
-                if (variable.length > 1) {
-                    variable = variable.substring(0, variable.length - 1);
-                }
                 if (iteratorCount < 0) iteratorCount = 0;
+                //此处addTab位置不能改,因为Tab需要根据上方的iteratorCount来定.
                 addTabs();
                 codeSection += ".计次循环尾 ()\n";
             } else {
-                addTabs();
-                addNew(sec1, isLoop, objName, jsonRealLinkName + sec1, variable, valueType);
+                addNew(eCodeObj + fixSignal(mItemObj), JsonRealLink + mItemObj, mObjType);
             }
         }
     }
 }
 
+var isAdd = false;
+
+function addFor(ERealCode, JSONRealCode, variable) {
+    if (isAdd === false) {
+        addRegionVariable("mArraySize", "文本型", "//设定局部Size大小值")
+    }
+    addTabs();
+    codeSection += "mArraySize = json.取子项目数(\"" + JSONRealCode + "\", ,)" + "' //此处自动定义了新的size\n";
+    addTabs();
+    codeSection += '重定义数组 (' + ERealCode + ', 假, mArraySize)\n';
+    addTabs();
+    codeSection += ".计次循环首 (mArraySize, " + variable + ")\n";
+}
+
 /**
  * 加入一行新的取项目值代码
+ * @param eObjLink 对象名称
+ * @param JsonRealLink json中实际的对象访问地址
+ * @param valueType json中预读取的值的类型
+ */
+function addNew(eObjLink, JsonRealLink, valueType, codeComment) {
+    addTabs();
+    var code = eObjLink + ' ＝ json.取项目值 ("' + JsonRealLink + '", , , , )';
+    codeSection += convertOtherType(valueType, code) + (codeComment ? "' //" + codeComment : "") + "\n";
+}
+
+/**
+ * 加入一行新的取项目值代码注释
  * @param obj 对象名称
  * @param isLoop 是否为计次循环首中的代码
  * @param objName 对象子名称
@@ -158,14 +175,9 @@ function getClassReadCode(str, objName, isLoop, jsonRealLinkName) {
  * @param variable 计次变量名称
  * @param valueType json中预读取的值的类型
  */
-function addNew(obj, isLoop, objName, jsonObjName, variable, valueType) {
-    var code = "";
-    if (isLoop) {
-        ((obj == null) ? obj = '' : obj = '.' + obj);
-        code = objName + '[' + variable + ']' + obj + ' ＝ json.取项目值 ("' + jsonObjName + '", , , , )';
-    } else
-        code = objName + '.' + obj + ' ＝ json.取项目值 ("' + jsonObjName + '", , , , )';
-    codeSection += convertOtherType(valueType, code);
+function addNewComment(val) {
+    addTabs();
+    codeSection += val;
 }
 
 /**
@@ -186,8 +198,11 @@ function convertOtherType(key, expression) {
         case '逻辑型':
             newText = arr[0] + ' = 选择(' + arr[1] + ' = "true", 真, 假)';
             break;
+        default:
+            newText = expression;
+            break;
     }
-    return newText + "\n";
+    return newText;
 }
 
 /**
