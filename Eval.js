@@ -1,11 +1,19 @@
 //作者
 var author = "QiuChenly";
 //代码发布日期
-var build_date = "2019年1月25日";
+var build_date = "2020年5月11日";
 //优化算法版本
-var codeVersion = "1.4";
+var codeVersion = "1.5";
 //算法版本特性
-var newFeature = "1.4 2019年4月15日" +
+var newFeature =
+    "1.5 2020年5月11日" +
+    "[修复] 1.4版本中存在的单元素基本数据类型数组识别为自定义数据类型的bug。" +
+    "[修复] 1.4版本中存在的SIZE变成文本型的bug。" +
+    "[修复] 1.4版本中存在的单数据类型数组多了一个“].”的bug。" +
+    "[修复] 1.4版本中存在的单数据类型数组不做对应数据类型转换的bug。" +
+
+
+    "1.4 2019年4月15日" +
     "[修复] 1.3及以前版本中对超大Json数据解析造成的生成代码问题" +
 
 
@@ -18,8 +26,7 @@ var newFeature = "1.4 2019年4月15日" +
 
 
     "1.2 2019年1月25日" +
-    "[新增] 支持一键生成JSON方法读取函数." +
-    "";
+    "[新增] 支持一键生成JSON方法读取函数.";
 
 var BaseSpace = "    ";
 var BaseInfoW = ".版本 2\n";
@@ -118,9 +125,10 @@ function getClassReadCode(mJsonObj, eCodeObj, JsonRealLink) {
                 } else {
                     //如果是基本类型数组
                     if (isBaseTypeArr) {
+                        mObjType = getObjTypeName(mJsonObj[mItemObj][0]);
                         addNew(
                             eCodeObj + fixSignal(mItemObj) + '[' + variable + ']',
-                            JsonRealLink + mItemObj + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "].',
+                            JsonRealLink + mItemObj + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "]',
                             mObjType
                         );
                     } else {
@@ -144,7 +152,7 @@ var isAdd = false;
 
 function addFor(ERealCode, JSONRealCode, variable) {
     if (isAdd === false) {
-        addRegionVariable("mArraySize", "文本型", "//设定局部Size大小值")
+        addRegionVariable("mArraySize", "整数型", "//设定局部Size大小值")
     }
     addTabs();
     codeSection += "mArraySize = json.取子项目数(\"" + JSONRealCode + "\", ,)" + "' //此处自动定义了新的size\n";
@@ -162,7 +170,7 @@ function addFor(ERealCode, JSONRealCode, variable) {
  */
 function addNew(eObjLink, JsonRealLink, valueType, codeComment) {
     addTabs();
-    var code = eObjLink + ' ＝ json.取项目值 ("' + JsonRealLink + '", , , , )';
+    var code = eObjLink + ' ＝ ' + 'json.取项目值 ("' + JsonRealLink + '", , , , )';
     codeSection += convertOtherType(valueType, code) + (codeComment ? "' //" + codeComment : "") + "\n";
 }
 
@@ -247,7 +255,9 @@ function getAll(tests, className) {
     for (var theObjName in tests) {
         if (tests.hasOwnProperty(theObjName)) {
             var valueType = getObjTypeName(tests[theObjName]);
-            //console.log(a + "|" + valueType);
+            // console.log(theObjName + "|" + valueType);
+            // if (theObjName === 'indexes')
+            //     debugger
             var newClsName = className + BaseAdditionSymbols + theObjName;
             if (isObj(valueType)) {
                 //单独对象的处理
@@ -282,6 +292,7 @@ function getAll(tests, className) {
  * 用于修复数组生成bug,有时候 json 对象中数组内只有基本数据类型,所以需要处理一下 fix 一个已知bug
  * @param obj 输入数组
  * @return boolean true or false
+ * @comment 2020年05月11日19:59:53 修复单个元素数组
  */
 function checkAllType(obj) {
     if (obj.length <= 0) return true;
@@ -290,9 +301,12 @@ function checkAllType(obj) {
     for (var a in obj) {
         if (theFirstType == null) {
             theFirstType = getObjTypeName(obj[a]);
+            if (obj.length === 1) {
+                hasSame = true;
+            }
             if (isObj(theFirstType)) break;
         } else {
-            hasSame = theFirstType === getObjTypeName(obj[a]);
+            hasSame = theFirstType === getObjTypeName(obj[a]) || obj.length === 1;
             if (hasSame) break
         }
     }
