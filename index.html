@@ -9,6 +9,7 @@
 <body>
     <script type="application/javascript" src="Eval.js"></script>
     <script type="application/javascript">
+        // 演示特殊类型key数据读取与超大量数据读取
         var ret = {
             "/api/v1/resource/comments/R_SO_4_1343767":
             {
@@ -1538,6 +1539,8 @@
             "code": 200
         };
 
+
+        // 演示多数据类型读取
         var ret2 = {
             "data":
             {
@@ -1572,11 +1575,27 @@
             "retMessage": "查询成功", "retCode": "1"
         };
 
+        //演示多key的数组对象数据生成读取代码
+        var ret3 = {
+            code: 0,
+            list: [
+                {
+                    ca1: 0
+                }, {
+                    ca1: 1,
+                    msg: "123"
+                }, {
+                    ca2: 122,
+                    msg1: "?"
+                }
+            ]
+        };
+
         //生成易语言读取JSON的方法
-        console.log(parseJSON2Function(ret2, "getSearchResult", "mSearchResult"));
+        console.log(parseJSON2Function(ret, "getSearchResult", "mSearchResult"));
 
         //生成易语言数据类型
-        console.log(parseJSON(ret2, 'mSearchResult'));
+        console.log(parseJSON(ret, 'mSearchResult'));
     </script>
 </body>
 

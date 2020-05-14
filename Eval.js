@@ -1,11 +1,16 @@
 //作者
 var author = "QiuChenly";
 //代码发布日期
-var build_date = "2020年5月11日";
+var build_date = "2020年5月14日";
 //优化算法版本
-var codeVersion = "1.5";
+var codeVersion = "1.6";
 //算法版本特性
 var newFeature =
+    "1.6 2020年5月14日" +
+    "[增加] 1.5版本中存在的多数组对象key值集合生成对象，现在已经支持先集合所有的数组中对象每一个keys再进行数据读取。" +
+    "[改进] 1.5版本中存在的数据类型声明问题，性能得以改善。" +
+
+
     "1.5 2020年5月11日" +
     "[修复] 1.4版本中存在的单元素基本数据类型数组识别为自定义数据类型的bug。" +
     "[修复] 1.4版本中存在的SIZE变成文本型的bug。" +
@@ -132,8 +137,8 @@ function getClassReadCode(mJsonObj, eCodeObj, JsonRealLink) {
                             mObjType
                         );
                     } else {
-                        //todo 此处固定为0  有优化问题
-                        getClassReadCode(mJsonObj[mItemObj][0], eCodeObj + fixSignal(mItemObj) + '[' + variable + '].', JsonRealLink + mItemObj + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "].');
+                        //此处处理的是非基本类型数组对象，包含复合类型对象
+                        getClassReadCode(parseArrayKeysToCollection(mJsonObj[mItemObj]), eCodeObj + fixSignal(mItemObj) + '[' + variable + '].', JsonRealLink + mItemObj + '[" ＋ 到文本 (' + variable + ' － 1) ＋ "].');
                     }
                 }
                 iteratorCount -= 1;
@@ -148,6 +153,25 @@ function getClassReadCode(mJsonObj, eCodeObj, JsonRealLink) {
     }
 }
 
+/**
+ * 处理数据对象中的数据集合到一个对象中，取所有可能的值
+ * @param {*} object 
+ */
+function parseArrayKeysToCollection(object) {
+    //todo 此处固定为0  有优化问题
+    //2020年05月14日13:55:00 开始优化数据对象补全算法
+    var itemModel = {};
+
+    for (var key in object) {
+        var temp_ = object[key];
+        for (var inx in temp_) {
+            itemModel[inx] = temp_[inx];
+        }
+    }
+
+    return itemModel;
+}
+
 var isAdd = false;
 
 function addFor(ERealCode, JSONRealCode, variable) {
@@ -157,9 +181,9 @@ function addFor(ERealCode, JSONRealCode, variable) {
     addTabs();
     codeSection += "mArraySize = json.取子项目数(\"" + JSONRealCode + "\", ,)" + "' //此处自动定义了新的size\n";
     addTabs();
-    codeSection += '重定义数组 (' + ERealCode + ', 假, mArraySize)\n';
+    codeSection += '重定义数组 (' + ERealCode + ', 假, mArraySize)\' //重新定义了数组对象长度 \n';
     addTabs();
-    codeSection += ".计次循环首 (mArraySize, " + variable + ")\n";
+    codeSection += ".计次循环首 (mArraySize, " + variable + ")' //开始循环对象数组数据，准备读取 \n";
 }
 
 /**
@@ -276,7 +300,8 @@ function getAll(tests, className) {
                 if (isBaseTypeArr) {
                     newClsName = getE_TypeName(getObjTypeName(tests[theObjName][0]));
                 } else {
-                    newClass.push(getAll(tests[theObjName][0], newClsName))
+                    //2020年5月11号 增加所有对象key数据整合
+                    newClass.push(getAll(parseArrayKeysToCollection(tests[theObjName]), newClsName))
                 }
                 BaseInfo += getChild(theObjName, newClsName, true, arrSize, ((arrSize <= 0) ? " 注意,此为空数组,请检查实际类型,自动类型仅供参考" : ""));
             } else {
@@ -292,7 +317,7 @@ function getAll(tests, className) {
  * 用于修复数组生成bug,有时候 json 对象中数组内只有基本数据类型,所以需要处理一下 fix 一个已知bug
  * @param obj 输入数组
  * @return boolean true or false
- * @comment 2020年05月11日19:59:53 修复单个元素数组
+ * @comment 2020年05月11日19:59:53 修复单个元素数组bug
  */
 function checkAllType(obj) {
     if (obj.length <= 0) return true;
