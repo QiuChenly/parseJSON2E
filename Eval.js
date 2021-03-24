@@ -1,11 +1,15 @@
 //作者
 var author = "QiuChenly";
 //代码发布日期
-var build_date = "2020年5月14日";
+var build_date = "2021年3月24日";
 //优化算法版本
-var codeVersion = "1.6";
+var codeVersion = "1.7";
 //算法版本特性
 var newFeature =
+    "1.7 2021年3月24日" +
+    "[改进] 1.6版本中存在的数组数据类型声明问题，性能得以改善。" +
+
+
     "1.6 2020年5月14日" +
     "[增加] 1.5版本中存在的多数组对象key值集合生成对象，现在已经支持先集合所有的数组中对象每一个keys再进行数据读取。" +
     "[改进] 1.5版本中存在的数据类型声明问题，性能得以改善。" +
@@ -63,17 +67,6 @@ function parseJSON(str, defaultName) {
 }
 
 /**
- * 新建一个易源码中的局部变量
- * @param name 变量名称
- * @param type 变量类型
- * @param commit 备注
- */
-function addRegionVariable(name, type, commit) {
-    var variable = '.局部变量 ' + name + ', ' + type + ', , , ' + commit + '\n';
-    if (BaseFunctionHead.indexOf(variable) === -1) BaseFunctionHead += variable;
-}
-
-/**
  * 处理json 自动生成为易语言读取JSON方法
  * @param str json
  * @param functionName 默认的易语言方法名称
@@ -87,6 +80,17 @@ function parseJSON2Function(str, functionName, className) {
     addRegionVariable('ret', className, "//本值用于返回该对象 ---- 自动生成");
     getClassReadCode(str, "ret.", "");
     return BaseFunctionHead + codeSection + end;
+}
+
+/**
+ * 新建一个易源码中的局部变量
+ * @param name 变量名称
+ * @param type 变量类型
+ * @param commit 备注
+ */
+function addRegionVariable(name, type, commit) {
+    var variable = '.局部变量 ' + name + ', ' + type + ', , , ' + commit + '\n';
+    if (BaseFunctionHead.indexOf(variable) === -1) BaseFunctionHead += variable;
 }
 
 /**
@@ -326,16 +330,27 @@ function checkAllType(obj) {
     for (var a in obj) {
         if (theFirstType == null) {
             theFirstType = getObjTypeName(obj[a]);
-            if (obj.length === 1) {
+            if (listIsSameType(obj)) {
                 hasSame = true;
             }
             if (isObj(theFirstType)) break;
         } else {
-            hasSame = theFirstType === getObjTypeName(obj[a]) || obj.length === 1;
+            hasSame = theFirstType === getObjTypeName(obj[a]) || listIsSameType(obj);
             if (hasSame) break
         }
     }
     return hasSame;
+}
+
+/**
+ * 列表检查是否为复合对象或基本类
+ */
+listIsSameType = (list) => {
+    let same = list.length === 1;
+    let type = getObjTypeName(list[0]);
+    // 有时候数组列表只有一个值 但是这个值是复合对象
+    same = !(isObj(type) || isObjArr(type));
+    return same
 }
 
 /**

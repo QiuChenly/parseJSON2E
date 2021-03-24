@@ -1591,11 +1591,31 @@
             ]
         };
 
+
+        // 1.6版本算法无法读取list中的数据 fix it
+        var spec1 = {
+            "list":
+            [{
+                "Account": null,
+                "PersonId": 1111111, 
+                "CardBindRecordId": 1111111, 
+                "RelatedId": "cd7a6555-e734-4c57-99c6-5f0dff5e8660", 
+                "CardNum": "111111111111111111111", "CardType": "0", 
+                "CardTypeName": "电子卡", "AppUId": "111111111111111111111", 
+                "AppId": "600100", "Related": 0, "RealStatus": 1, 
+                "PatientName": "哈哈", "IDCardType": 1, 
+                "IDCardTypeName": "身份证", "IDCard": "**************1111", 
+                "Gender": 2, "Birthday": "1111-11-11", "Mobile": "111****1111", 
+                "Email": "", "Address": "", "PatientId": "1111111111", "Origin": 1, 
+                "CardCount": 0, "Guardian": "", "GuardianIdCardNo": "", 
+                "GuardianRealStatus": 0, "CreateTime": "2021-03-23T13:56:35Z", "IsApply": 1
+            }], "MaxNum": 4, "IsCanAddCard": true, "maxDeleteNum": 2, "showUnbind": true
+        }
         //生成易语言读取JSON的方法
-        console.log(parseJSON2Function(ret, "getSearchResult", "mSearchResult"));
+        console.log(parseJSON2Function(spec1, "getSearchResult", "mSearchResult"));
 
         //生成易语言数据类型
-        console.log(parseJSON(ret, 'mSearchResult'));
+        console.log(parseJSON(spec1, 'mSearchResult'));
     </script>
 </body>
 
